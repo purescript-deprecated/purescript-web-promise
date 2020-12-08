@@ -7,6 +7,9 @@
     "commonjs": true,
     "browser": true
   },
+  "globals": {
+    "Promise": "readonly"
+  },
   "rules": {
     "strict": [2, "global"],
     "block-scoped-var": 2,
