@@ -14,11 +14,17 @@ import Web.Promise.Rejection (Rejection)
 
 type Executor a = (a -> Effect Unit) -> (Rejection -> Effect Unit) -> Effect Unit
 
-new :: forall a. Executor a -> Effect (Promise a)
+class Flatten :: forall k1 k2. k1 -> k2 -> Constraint
+class Flatten a b | a -> b
+
+instance flattenPromise :: Flatten a b => Flatten (Promise a) b
+else instance flattenDone :: Flatten a a
+
+new :: forall a b. Flatten a b => Executor a -> Effect (Promise b)
 new k = runEffectFn1 P.new $ mkEffectFn2 \onResolve onReject ->
   k (runEffectFn1 onResolve) (runEffectFn1 onReject)
 
-then_ :: forall a b. (a -> Effect (Promise b)) -> Promise a -> Effect (Promise b)
+then_ :: forall a b c. Flatten b c => (a -> Effect (Promise b)) -> Promise a -> Effect (Promise c)
 then_ k p = runEffectFn2 P.then_ (mkEffectFn1 k) p
 
 catch :: forall a b. (Rejection -> Effect (Promise b)) -> Promise a -> Effect (Promise b)
