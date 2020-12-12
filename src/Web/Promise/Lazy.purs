@@ -60,7 +60,9 @@ all :: forall a. Array (LazyPromise a) -> LazyPromise (Array a)
 all as = LazyPromise do
   as' <- traverse (\(LazyPromise a) -> a) as
   as'' <- runEffectFn1 P.all as'
-  runEffectFn2 P.then_ (mkEffectFn1 \bs -> pure (P.resolve (Box (map (\(Box b) -> b) bs)))) as''
+  runEffectFn2 P.then_ rebox as''
+  where
+  rebox = mkEffectFn1 \bs -> pure (P.resolve (Box (map (\(Box b) -> b) bs)))
 
 race :: forall a. Array (LazyPromise a) -> LazyPromise a
 race as = LazyPromise do
