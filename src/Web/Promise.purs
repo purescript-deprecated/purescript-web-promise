@@ -14,7 +14,7 @@ import Web.Promise.Rejection (Rejection)
 
 type Executor a = (a -> Effect Unit) -> (Rejection -> Effect Unit) -> Effect Unit
 
-class Flatten :: forall k1 k2. k1 -> k2 -> Constraint
+class Flatten :: Type -> Type -> Constraint
 class Flatten a b | a -> b
 
 instance flattenPromise :: Flatten a b => Flatten (Promise a) b
