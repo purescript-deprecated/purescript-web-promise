@@ -8,7 +8,7 @@ import Prelude
 
 import Effect (Effect)
 import Effect.Uncurried (mkEffectFn1, mkEffectFn2, runEffectFn1, runEffectFn2)
-import Web.Promise.Internal (Promise, reject, resolve)
+import Web.Promise.Internal (Promise, reject)
 import Web.Promise.Internal as P
 import Web.Promise.Rejection (Rejection)
 
@@ -32,6 +32,9 @@ catch k p = runEffectFn2 P.catch (mkEffectFn1 k) p
 
 finally :: forall a. (Effect (Promise Unit)) -> Promise a -> Effect (Promise a)
 finally = runEffectFn2 P.finally
+
+resolve :: forall a b. Flatten a b => a -> Promise b
+resolve = P.resolve
 
 all :: forall a. Array (Promise a) -> Effect (Promise (Array a))
 all = runEffectFn1 P.all
