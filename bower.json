@@ -17,6 +17,7 @@
     "purescript-exceptions": "^5.0.0",
     "purescript-functions": "^5.0.0",
     "purescript-maybe": "^5.0.0",
-    "purescript-prelude": "^5.0.0"
+    "purescript-prelude": "^5.0.0",
+    "purescript-foldable-traversable": "^5.0.0"
   }
 }
