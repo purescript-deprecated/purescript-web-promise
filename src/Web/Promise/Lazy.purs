@@ -68,3 +68,12 @@ race :: forall a. Array (LazyPromise a) -> LazyPromise a
 race as = LazyPromise do
   as' <- traverse (\(LazyPromise a) -> a) as
   runEffectFn1 P.race as'
+
+fromPromise :: forall a. Effect (P.Promise a) -> LazyPromise a
+fromPromise p = LazyPromise $ runEffectFn2 P.then_ (mkEffectFn1 (pure <<< P.resolve <<< Box)) =<< p
+
+toPromise :: forall a. LazyPromise a -> Effect (P.Promise a)
+toPromise (LazyPromise p) = unbox =<< p
+  where
+  unbox :: forall b. P.Promise (Box b) -> Effect (P.Promise b)
+  unbox = runEffectFn2 P.then_ (mkEffectFn1 \(Box b) -> pure (P.resolve b))
