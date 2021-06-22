@@ -7,7 +7,7 @@ import Data.Traversable (traverse)
 import Effect (Effect)
 import Effect.Class (class MonadEffect)
 import Effect.Uncurried (mkEffectFn1, mkEffectFn2, runEffectFn1, runEffectFn2)
-import Web.Promise (Executor, Rejection)
+import Web.Promise (class Flatten, Executor, Rejection)
 import Web.Promise.Internal as P
 
 -- | A trivial box that adds a layer between promises to prevent automatic flattening.
@@ -72,8 +72,5 @@ race as = LazyPromise do
 fromPromise :: forall a. Effect (P.Promise a) -> LazyPromise a
 fromPromise p = LazyPromise $ runEffectFn2 P.then_ (mkEffectFn1 (pure <<< P.resolve <<< Box)) =<< p
 
-toPromise :: forall a. LazyPromise a -> Effect (P.Promise a)
-toPromise (LazyPromise p) = unbox =<< p
-  where
-  unbox :: forall b. P.Promise (Box b) -> Effect (P.Promise b)
-  unbox = runEffectFn2 P.then_ (mkEffectFn1 \(Box b) -> pure (P.resolve b))
+toPromise :: forall a b. Flatten a b => LazyPromise a -> Effect (P.Promise b)
+toPromise (LazyPromise p) = runEffectFn2 P.then_ (mkEffectFn1 \(Box b) -> pure (P.resolve b)) =<< p
