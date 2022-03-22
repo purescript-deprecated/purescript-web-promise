@@ -1,18 +1,21 @@
-export function new(k) {
+const newImpl = function (k) {
   return new Promise(k);
-}
+};
+export { newImpl as new };
 
 export function then_(k, p) {
   return p.then(k);
 }
 
-export function catch(k, p) {
+const catchImpl = function (k, p) {
   return p.catch(k);
-}
+};
+export { catchImpl as catch };
 
-export function finally(k, p) {
+const finallyImpl = function (k, p) {
   return p.finally(k);
-}
+};
+export { finallyImpl as finally };
 
 export function resolve(a) {
   return Promise.resolve(a);
