@@ -1,33 +1,33 @@
 "use strict";
 
-exports.new = function(k) {
+export function new(k) {
   return new Promise(k);
-};
+}
 
-exports.then_ = function(k, p) {
+export function then_(k, p) {
   return p.then(k);
-};
+}
 
-exports.catch  = function(k, p) {
+export function catch(k, p) {
   return p.catch(k);
-};
+}
 
-exports.finally = function(k, p) {
+export function finally(k, p) {
   return p.finally(k);
-};
+}
 
-exports.resolve = function(a) {
+export function resolve(a) {
   return Promise.resolve(a);
-};
+}
 
-exports.reject = function(a) {
+export function reject(a) {
   return Promise.reject(a);
-};
+}
 
-exports.all = function(a) {
+export function all(a) {
   return Promise.all(a);
-};
+}
 
-exports.race = function(a) {
+export function race(a) {
   return Promise.race(a);
-};
+}
