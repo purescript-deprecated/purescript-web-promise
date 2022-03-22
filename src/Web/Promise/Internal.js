@@ -1,5 +1,3 @@
-"use strict";
-
 export function new(k) {
   return new Promise(k);
 }

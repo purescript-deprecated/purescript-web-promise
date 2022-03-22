@@ -1,5 +1,3 @@
-"use strict";
-
 export function fromError(a) {
   return a;
 }
