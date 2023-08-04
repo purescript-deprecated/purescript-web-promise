@@ -1,18 +1,5 @@
-# purescript-web-promise
+# DEPRECATED
 
-[![Latest release](http://img.shields.io/github/release/purescript-web/purescript-web-promise.svg)](https://github.com/purescript-web/purescript-web-promise/releases)
-[![Build status](https://github.com/purescript-web/purescript-web-promise/workflows/CI/badge.svg?branch=master)](https://github.com/purescript-web/purescript-web-promise/actions?query=workflow%3ACI+branch%3Amaster)
-[![Pursuit](https://pursuit.purescript.org/packages/purescript-web-promise/badge)](https://pursuit.purescript.org/packages/purescript-web-promise)
+Promises work on Node and in the browser, so this library has been deprecated. The same functionality can be found in the platform-agnostic [`purescript-js-promise`](https://github.com/purescript-contrib/purescript-js-promise) library.
 
-Types and low-level implementations for JavaScript Promises.
-
-## Installation
-
-```
-spago install web-promise
-```
-
-## Documentation
-
-Module documentation is [published on Pursuit](http://pursuit.purescript.org/packages/purescript-web-promise).
-
+Versions of `purescript-web-promise` up to [3.0.1](https://github.com/purescript-web/purescript-web-promise/releases/tag/v3.1.0) continue to work.
